@@ -25,10 +25,10 @@ if($row != null){
 		$_SESSION['login'] = true;
 		$_SESSION['email'] =  $user['email'];
 		$_SESSION['username'] =  $row['username'];
-		header("Location: read.php");
+		header('Location:../../phpdasar/relasi/siswa.php');
 	}else{
 		$_SESSION['error'] = 'Password anda salah.';
-		header("Location: login.php");
+		header('Location: login.php');
 	}
 
 }else{
