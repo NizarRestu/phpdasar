@@ -1,9 +1,9 @@
-<?php
-session_start();
+ <?php
+// session_start();
 
-if (empty($_SESSION['login'])) {
-    header("Location: login.php");
-}
+// if (empty($_SESSION['login'])) {
+//     header("Location: login.php");
+// }
 ?>
 <?php include "connect.php" ?>
 <!DOCTYPE html>
@@ -31,6 +31,7 @@ if (empty($_SESSION['login'])) {
                     <th>Gender</th>
                     <th>Kelas</th>
                     <th>Nama Sekolah</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,16 +39,20 @@ if (empty($_SESSION['login'])) {
                 $sql = "select * from siswa INNER JOIN kelas ON siswa.id_kelas = kelas.id INNER JOIN sekolah ON kelas.id_sekolah = sekolah.id";
                 $result = mysqli_query($conn, $sql);
                 $no = 1;
-                foreach($result as $row) :
+                foreach ($result as $row) :
                 ?>
-                <tr>
-                    <td><?= $no++;?></td>
-                    <td><?=$row['nama_siswa']?></td>
-                    <td><?=$row['nisn']?></td>
-                    <td><?=$row['gender']?></td>
-                    <td><?=$row['tingkat_kelas'] .' '.$row['jurusan_kelas']; ?></td>
-                    <td><?=$row['nama_sekolah'] ?></td>
-                </tr>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $row['nama_siswa'] ?></td>
+                        <td><?= $row['nisn'] ?></td>
+                        <td><?= $row['gender'] ?></td>
+                        <td><?= $row['tingkat_kelas'] . ' ' . $row['jurusan_kelas']; ?></td>
+                        <td><?= $row['nama_sekolah'] ?></td>
+                        <td class="text-center">
+                            <a href=<?= 'detail.php?id=' . $row['id_siswa']; ?> class="btn btn-sm btn-primary">Detail</a>
+                            <button onClick="<?= 'hapus(' . $row['id_siswa'].')'; ?>" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
